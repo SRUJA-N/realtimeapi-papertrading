@@ -1,0 +1,97 @@
+/* ------------------------------
+   GLOBAL STYLES
+------------------------------ */
+body {
+  font-family: Arial, sans-serif;     /* Set default font */
+  display: flex;                      /* Use flexbox to center content */
+  justify-content: center;            /* Center horizontally */
+  align-items: center;                /* Center vertically */
+  height: 100vh;                      /* Full viewport height */
+  margin: 0;                          /* Remove default margin */
+  background-color: #0C67A0;          /* Page background color */
+}
+
+/* ------------------------------
+   MAIN CONTAINER
+------------------------------ */
+.container {
+  display: flex;                      /* Flexbox layout */
+  justify-content: center;            /* Center horizontally */
+  align-items: center;                /* Center vertically */
+  height: 100vh;                      /* Full viewport height */
+  width: 100%;                        /* Full width */
+}
+
+/* ------------------------------
+   FORM CONTAINER
+------------------------------ */
+.form-container {
+  background-color: white;            /* White form background */
+  padding: 20px;                      /* Inner spacing */
+  border-radius: 10px;                /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+  width: 300px;                        /* Fixed width for form */
+}
+
+/* ------------------------------
+   FORM TOGGLE BUTTONS (Login/Signup)
+------------------------------ */
+.form-toggle {
+  display: flex;                      /* Flexbox for buttons */
+  justify-content: space-between;     /* Space between buttons */
+  margin-bottom: 20px;                /* Space below toggle */
+}
+
+.form-toggle button {
+  width: 50%;                         /* Each button takes half width */
+  padding: 10px;                      /* Inner spacing */
+  background-color: #f3f3f3;          /* Default button background */
+  border: none;                       /* Remove border */
+  cursor: pointer;                    /* Pointer cursor on hover */
+  font-size: 16px;                    /* Button text size */
+  border-radius: 10px 10px 0 0;       /* Rounded top corners */
+}
+
+.form-toggle .active {
+  background-color: #033452;          /* Active button background */
+  color: white;                        /* Active button text color */
+}
+
+/* ------------------------------
+   FORM ELEMENTS
+------------------------------ */
+.form {
+  display: flex;                      /* Flexbox for form layout */
+  flex-direction: column;             /* Stack elements vertically */
+}
+
+.form h2 {
+  margin-bottom: 20px;                /* Space below heading */
+}
+
+.form input {
+  padding: 10px;                       /* Input inner spacing */
+  margin-bottom: 10px;                 /* Space below input */
+  border: 1px solid #ddd;              /* Light border */
+  border-radius: 5px;                  /* Rounded corners */
+}
+
+.form button {
+  padding: 10px;                       /* Button inner spacing */
+  background-color:#033452;            /* Button background color */
+  color: white;                        /* Button text color */
+  border: none;                        /* Remove default border */
+  border-radius: 5px;                  /* Rounded corners */
+  cursor: pointer;                     /* Pointer cursor */
+}
+
+.form a {
+  color: #007bff;                      /* Link color */
+  text-decoration: none;               /* Remove underline */
+  margin-bottom: 10px;                 /* Space below link */
+  text-align: right;                   /* Align link to right */
+}
+
+.form p {
+  text-align: center;                  /* Center paragraph text */
+}

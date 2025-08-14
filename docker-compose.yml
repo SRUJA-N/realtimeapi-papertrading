@@ -1,0 +1,66 @@
+# Specifies the Docker Compose file format version
+version: "3.8"
+
+# Defines the services (containers) that make up your application
+services:
+
+  # --- Database Service ---
+  db:
+    image: postgres:15
+    container_name: trading_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-app_db}
+    ports:
+      - "${POSTGRES_PORT:-5431}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - trading_network
+
+  # --- Backend Service (FastAPI) ---
+  backend:
+    build:
+      context: ./backend # Path to the backend Dockerfile
+    container_name: trading_backend
+    restart: unless-stopped
+    depends_on:
+      - db # Ensures the database is started before the backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Connect to the 'db' service on the Docker network
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-app_db}
+    volumes:
+      - ./backend:/app # Mounts the local backend code into the container for live-reloading (optional, for development)
+    networks:
+      - trading_network
+
+  # --- Frontend Service (React + NGINX) ---
+  frontend:
+    build:
+      context: ./front # Path to the frontend Dockerfile
+    container_name: trading_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80" # Maps host port 5173 to the container's NGINX port 80
+    depends_on:
+      - backend # Ensures the backend is ready to accept requests
+    networks:
+      - trading_network
+
+# Defines the network that allows services to communicate
+networks:
+  trading_network:
+    driver: bridge
+
+# Defines the named volume for persistent database storage
+volumes:
+  postgres_data:
+    driver: local
