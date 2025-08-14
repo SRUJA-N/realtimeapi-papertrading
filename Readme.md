@@ -47,7 +47,7 @@ You need to have the following software installed on your machine:
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/SRUJA-N/papertrading-docker.git
-    cd Trading
+    cd papertrading-docker
     ```
 
 2.  **Set Up the Backend:**
@@ -152,7 +152,7 @@ You must have the following software installed on your machine:
 
 2.  **Navigate to the project directory**
     ```bash
-    cd trading
+    cd papertrading-docker
     ```
 
 3.  **Build and run the application**
