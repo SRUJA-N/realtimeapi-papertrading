@@ -46,7 +46,7 @@ You need to have the following software installed on your machine:
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/SRUJA-N/Project-Paper-Trading.git
+    git clone https://github.com/SRUJA-N/papertrading-docker.git
     cd Trading
     ```
 
@@ -114,3 +114,59 @@ A brief overview of the main API endpoints:
 | `GET` | `/portfolio` | (Protected) Fetches the user's current portfolio. |
 | `GET` | `/trade-history` | (Protected) Fetches the user's trade history. |
 | `WS` | `/ws` | WebSocket endpoint for the real-time price feed. |
+                                                                                                   or 
+
+
+# 📈 Paper Trading Platform
+
+A full-stack paper trading application built with React, FastAPI, and PostgreSQL, all containerized with Docker. This platform simulates live stock market data and allows users to practice trading without real money.
+
+## ✨ Features
+
+* **User Authentication**: Secure user registration and JWT-based login.
+* **Real-Time Data**: Live stock data streamed via WebSockets.
+* **Trade Execution**: Buy and sell stocks with a simple interface.
+* **Portfolio Management**: View all current holdings with average price and quantity.
+* **Trade History**: Keep a record of all past trades.
+* **Dockerized**: The entire application can be launched with a single command.
+
+
+
+## 🚀 Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine.
+
+### **Prerequisites**
+
+You must have the following software installed on your machine:
+* [Git](https://git-scm.com/)
+* [Docker](https://www.docker.com/products/docker-desktop/) and Docker Compose
+
+### **Installation**
+
+1.  **Clone the repository**
+    Open your terminal and clone the project using this command:
+    ```bash
+    git clone https://github.com/SRUJA-N/papertrading-docker.git
+    ```
+
+2.  **Navigate to the project directory**
+    ```bash
+    cd trading
+    ```
+
+3.  **Build and run the application**
+    Use Docker Compose to build the images and launch all the services. This single command does everything for you.
+    ```bash
+    docker-compose up --build -d
+    ```
+
+4.  **Access the application**
+    Once the containers are running, you can access the frontend in your browser at:
+    * **Frontend**: `http://localhost:5173`
+
+    The other services are also running:
+    * **Backend API**: `http://localhost:8000`
+    * **API Docs**: `http://localhost:8000/docs`
+
+---
