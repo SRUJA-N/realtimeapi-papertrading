@@ -9,22 +9,13 @@ from database import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)           # Primary key
-    email = Column(String, unique=True, index=True, nullable=False)  # Unique email
-    hashed_password = Column(String, nullable=False)            # Password hash
-    created_at = Column(DateTime, default=datetime.utcnow)      # Account creation timestamp
+    id = Column(Integer, primary_key=True)
+    email = Column(String, unique=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
-    # Relationships
-    portfolio = relationship(
-        "Portfolio",
-        back_populates="owner",
-        cascade="all, delete-orphan"                            # Delete portfolio if user is deleted
-    )
-    trades = relationship(
-        "Trade",
-        back_populates="owner",
-        cascade="all, delete-orphan"                            # Delete trades if user is deleted
-    )
+    portfolio = relationship("Portfolio", back_populates="owner", cascade="all, delete-orphan")
+    trades = relationship("Trade", back_populates="owner", cascade="all, delete-orphan")
 
 # ------------------------------
 # PORTFOLIO MODEL
@@ -32,14 +23,13 @@ class User(Base):
 class Portfolio(Base):
     __tablename__ = "portfolio"
 
-    id = Column(Integer, primary_key=True, index=True)           # Primary key
-    user_id = Column(Integer, ForeignKey("users.id"))           # Link to User
-    symbol = Column(String, index=True, nullable=False)         # Stock symbol
-    quantity = Column(Integer, nullable=False)                  # Number of shares
-    avg_price = Column(Float, nullable=False)                   # Average price of holding
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    symbol = Column(String, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    avg_price = Column(Float, nullable=False)
 
-    # Relationship
-    owner = relationship("User", back_populates="portfolio")    # Link back to User
+    owner = relationship("User", back_populates="portfolio")
 
 # ------------------------------
 # TRADE MODEL
@@ -47,13 +37,12 @@ class Portfolio(Base):
 class Trade(Base):
     __tablename__ = "trades"
 
-    id = Column(Integer, primary_key=True, index=True)           # Primary key
-    user_id = Column(Integer, ForeignKey("users.id"))           # Link to User
-    symbol = Column(String, index=True, nullable=False)         # Stock symbol
-    trade_type = Column(String, nullable=False)                 # BUY or SELL
-    quantity = Column(Integer, nullable=False)                  # Number of shares traded
-    price = Column(Float, nullable=False)                       # Trade price
-    timestamp = Column(DateTime, default=datetime.utcnow)       # Trade timestamp
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    symbol = Column(String, nullable=False)
+    trade_type = Column(String, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
-    # Relationship
-    owner = relationship("User", back_populates="trades")       # Link back to User
+    owner = relationship("User", back_populates="trades")

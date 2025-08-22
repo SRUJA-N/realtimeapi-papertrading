@@ -1,5 +1,3 @@
-# --- Stage 1: Build the React App ---
-# Name this stage 'builder'
 FROM node:18-alpine as builder
 
 # Set the working directory inside the container

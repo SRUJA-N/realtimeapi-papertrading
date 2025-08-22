@@ -16,17 +16,17 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
-  const [stockData, setStockData] = useState(null);
+  const [cryptoData, setCryptoData] = useState(null);
   const [lastPrice, setLastPrice] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
   const [error, setError] = useState("");
   const [priceHistory, setPriceHistory] = useState([]);
-  const [selectedTicker, setSelectedTicker] = useState("GEMINI");
+  const [selectedTicker, setSelectedTicker] = useState("bitcoin");
 
   const token = localStorage.getItem("token");
-  const availableTickers = ["GEMINI", "AAPL", "GOOGL", "TSLA", "MSFT"];
+  const availableTickers = ["bitcoin", "ethereum", "dogecoin", "litecoin", "binancecoin"];
 
   // Fetch user, portfolio, and trade history
   useEffect(() => {
@@ -48,14 +48,14 @@ export default function Dashboard() {
     fetchData();
   }, [token]);
 
-  // WebSocket for real-time stock updates
+  // WebSocket for real-time crypto updates
   useEffect(() => {
     const ws = new WebSocket(`ws://localhost:8000/ws/${selectedTicker}`);
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       setLastPrice((prev) => (prev !== null ? prev : data.price));
-      setStockData(data);
+      setCryptoData(data);
 
       setPriceHistory((prev) => {
         const newHistory = [...prev, data.price];
@@ -64,17 +64,17 @@ export default function Dashboard() {
       });
     };
 
-    ws.onclose = () => setStockData(null);
+    ws.onclose = () => setCryptoData(null);
     return () => ws.close();
   }, [selectedTicker]);
 
   // Trade handler
   const handleTrade = async (type) => {
-    if (!stockData) return;
+    if (!cryptoData) return;
     try {
       await axios.post(
         "http://localhost:8000/trade",
-        { symbol: stockData.stock, trade_type: type, quantity: parseInt(quantity), price: parseFloat(stockData.price) },
+        { symbol: cryptoData.stock, trade_type: type, quantity: parseInt(quantity), price: parseFloat(cryptoData.price) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -132,20 +132,20 @@ export default function Dashboard() {
             <h3>Live Market</h3>
             <select value={selectedTicker} onChange={(e) => setSelectedTicker(e.target.value)}>
               {availableTickers.map((ticker) => (
-                <option key={ticker} value={ticker}>{ticker}</option>
+                <option key={ticker} value={ticker}>{ticker.toUpperCase()}</option>
               ))}
             </select>
 
-            {stockData ? (
+            {cryptoData ? (
               <>
-                <h2>{stockData.stock}</h2>
-                <p className={`price ${stockData.price > lastPrice ? "up" : "down"}`}>
-                  ${stockData.price.toFixed(2)}
+                <h2>{cryptoData.stock.toUpperCase()}</h2>
+                <p className={`price ${cryptoData.price > lastPrice ? "up" : "down"}`}>
+                  ${cryptoData.price.toFixed(2)}
                 </p>
-                <p className={`change ${stockData.change_percent >= 0 ? "up" : "down"}`}>
-                  {stockData.change_percent >= 0 ? "▲" : "▼"} {stockData.change_percent}%
+                <p className={`change ${cryptoData.change_percent >= 0 ? "up" : "down"}`}>
+                  {cryptoData.change_percent >= 0 ? "▲" : "▼"} {cryptoData.change_percent}%
                 </p>
-                <p className="volume">Volume: {stockData.volume}</p>
+                <p className="volume">Volume: {cryptoData.volume}</p>
                 <div className="line-chart-container">
                   <Line data={lineChartData} options={lineChartOptions} />
                 </div>
@@ -178,7 +178,7 @@ export default function Dashboard() {
             <tbody>
               {portfolio.map((p) => (
                 <tr key={p.id}>
-                  <td>{p.symbol}</td>
+                  <td>{p.symbol.toUpperCase()}</td>
                   <td>{p.quantity}</td>
                   <td>${p.avg_price.toFixed(2)}</td>
                 </tr>
@@ -202,7 +202,7 @@ export default function Dashboard() {
             <tbody>
               {tradeHistory.map((t) => (
                 <tr key={t.id}>
-                  <td>{t.symbol}</td>
+                  <td>{t.symbol.toUpperCase()}</td>
                   <td style={{ color: t.trade_type === "BUY" ? "#26a69a" : "#ef5350", fontWeight: "bold" }}>
                     {t.trade_type}
                   </td>
@@ -218,3 +218,4 @@ export default function Dashboard() {
     </div>
   );
 }
+

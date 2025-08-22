@@ -4,6 +4,15 @@ fastapi==0.111.0
 
 # Uvicorn ASGI server with standard extras for running FastAPI
 uvicorn[standard]==0.23.2
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+pydantic
+python-dotenv
+requests
+bcrypt==4.0.1
+passlib[bcrypt]==1.7.4
 
 # SQLAlchemy ORM for database interactions
 sqlalchemy==2.0.26
@@ -21,4 +30,5 @@ passlib[bcrypt]==1.7.4
 python-multipart
 
 # Pydantic for data validation and settings management
-pydantic==2.6.2
+
+requests

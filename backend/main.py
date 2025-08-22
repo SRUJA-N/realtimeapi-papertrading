@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Annotated, Dict
 import asyncio
 import random
+import requests
 
 import models
 import schemas
@@ -80,6 +81,21 @@ async def get_current_user(
     if user is None:
         raise credentials_exception
     return user
+
+def get_coin_price(coin: str) -> float:
+    """
+    Fetch current price of a coin from CoinGecko.
+    coin: lowercase string like 'bitcoin', 'ethereum'
+    """
+    url = "https://api.coingecko.com/api/v3/simple/price"
+    params = {"ids": coin.lower(), "vs_currencies": "usd"}
+    try:
+        response = requests.get(url, params=params, timeout=5)
+        response.raise_for_status()
+        return response.json()[coin.lower()]["usd"]
+    except Exception:
+        # fallback if API fails
+        return round(random.uniform(50, 500), 2)
 
 # ------------------------------
 # AUTH ENDPOINTS
@@ -187,7 +203,7 @@ def get_trade_history(
     return db.query(models.Trade).filter_by(user_id=current_user.id).order_by(models.Trade.timestamp.desc()).all()
 
 # ------------------------------
-# DYNAMIC MULTI-TICKER WEBSOCKET
+# DYNAMIC MULTI-TICKER WEBSOCKET (CoinGecko)
 # ------------------------------
 active_tickers: Dict[str, Dict] = {}
 
@@ -197,18 +213,18 @@ async def websocket_endpoint(websocket: WebSocket, ticker: str):
 
     if ticker not in active_tickers:
         active_tickers[ticker] = {
-            "price": round(random.uniform(50, 500), 2),
+            "price": get_coin_price(ticker),
             "volume": random.randint(10000, 50000)
         }
 
     try:
         while True:
             state = active_tickers[ticker]
-            change = round(random.uniform(-1, 1), 2)
-            price = round(state["price"] + change, 2)
-            if price < 0: price = 0.01
-            change_percent = round((change / price) * 100, 2)
+            price = get_coin_price(ticker)
+            change = price - state["price"]
+            change_percent = round((change / state["price"]) * 100, 2)
             volume = max(0, state["volume"] + random.randint(-200, 300))
+
             active_tickers[ticker]["price"] = price
             active_tickers[ticker]["volume"] = volume
 
