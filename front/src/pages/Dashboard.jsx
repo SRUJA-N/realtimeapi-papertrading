@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Line } from "react-chartjs-2";
+import { authAPI, tradeAPI } from "../services/api.js";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import "./Dashboard.css";
+import "../styles/Dashboard.css";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -33,9 +33,9 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const [userRes, portfolioRes, historyRes] = await Promise.all([
-          axios.get("http://localhost:8000/users/me", { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get("http://localhost:8000/portfolio", { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get("http://localhost:8000/trade-history", { headers: { Authorization: `Bearer ${token}` } }),
+          authAPI.getUser(),
+          tradeAPI.getPortfolio(),
+          tradeAPI.getTradeHistory(),
         ]);
         setUser(userRes.data);
         setPortfolio(portfolioRes.data);
@@ -72,15 +72,16 @@ export default function Dashboard() {
   const handleTrade = async (type) => {
     if (!cryptoData) return;
     try {
-      await axios.post(
-        "http://localhost:8000/trade",
-        { symbol: cryptoData.stock, trade_type: type, quantity: parseInt(quantity), price: parseFloat(cryptoData.price) },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await tradeAPI.executeTrade({
+        symbol: cryptoData.stock,
+        trade_type: type,
+        quantity: parseInt(quantity),
+        price: parseFloat(cryptoData.price)
+      });
 
       const [portfolioRes, historyRes] = await Promise.all([
-        axios.get("http://localhost:8000/portfolio", { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get("http://localhost:8000/trade-history", { headers: { Authorization: `Bearer ${token}` } }),
+        tradeAPI.getPortfolio(),
+        tradeAPI.getTradeHistory(),
       ]);
       setPortfolio(portfolioRes.data);
       setTradeHistory(historyRes.data);

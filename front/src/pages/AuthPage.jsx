@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { authAPI } from '../services/api.js';
 
 function AuthPage() {
   // --- STATE MANAGEMENT ---
@@ -24,15 +24,7 @@ function AuthPage() {
     if (isLogin) {
       // --- LOGIN LOGIC ---
       try {
-        // OAuth2 expects form data (key=value&key=value), not JSON
-        const formData = new URLSearchParams();
-        formData.append('username', email); // The standard requires the key to be 'username'
-        formData.append('password', password);
-
-        // Send the login request to the backend
-        const response = await axios.post('http://127.0.0.1:8000/login', formData, {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        });
+        const response = await authAPI.login({ email, password });
 
         // If successful, save the token to browser storage and redirect to the dashboard
         localStorage.setItem('token', response.data.access_token);
@@ -55,8 +47,7 @@ function AuthPage() {
       }
 
       try {
-        // Send the signup request with JSON data
-        await axios.post('http://127.0.0.1:8000/signup', {
+        await authAPI.signup({
           email,
           password,
           confirm_password: confirmPassword

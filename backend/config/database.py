@@ -3,17 +3,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+from .settings import settings
+
 # ------------------------------
 # Database Configuration
 # ------------------------------
-# Using environment variables for security and flexibility
-DB_USER = os.getenv("POSTGRES_USER", "postgres")
-DB_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres")
-DB_HOST = os.getenv("POSTGRES_HOST", "localhost")
-DB_PORT = os.getenv("POSTGRES_PORT", "5431")
-DB_NAME = os.getenv("POSTGRES_DB", "app_db")
-
-SQLALCHEMY_DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# Using SQLite for development (easier setup)
+SQLALCHEMY_DATABASE_URL = "sqlite:///./app.db"
 
 # ------------------------------
 # SQLAlchemy Engine & Session
@@ -24,8 +20,7 @@ SQLALCHEMY_DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_P
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     echo=True,          # Logs SQL queries for debugging; remove in production
-    pool_size=10,       # Connection pool size
-    max_overflow=20     # Maximum overflow connections
+    connect_args={"check_same_thread": False}  # Needed for SQLite
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
