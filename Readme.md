@@ -1,4 +1,4 @@
-<img width="1916" height="1078" alt="Screenshot 2025-09-06 233710" src="https://github.com/user-attachments/assets/1e921aaf-392b-4910-ab08-3467af76bb7c" /># 📈 RealtimeAPI Paper Trading Platform
+# 📈 RealtimeAPI Paper Trading Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
@@ -22,9 +22,12 @@ A full-stack paper trading platform that allows users to simulate cryptocurrency
 - 📱 Responsive React frontend with protected routes
 
 ## 📸 Screenshots
-<img width="1919" height="1079" alt="Screenshot 2025-09-06 233834" src="https://github.com/user-attachments/assets/1e76176e-fc61-4b91-b014-631506840b8b" />
-<img width="1913" height="1079" alt="Screenshot 2025-09-06 233717" src="https://github.com/user-attachments/assets/1577462f-0412-4c42-ac52-7484a8b4c238" />
+
 <img width="1916" height="1078" alt="Screenshot 2025-09-06 233710" src="https://github.com/user-attachments/assets/90fa061c-7212-4822-b40f-e07245440979" />
+
+<img width="1913" height="1079" alt="Screenshot 2025-09-06 233717" src="https://github.com/user-attachments/assets/1577462f-0412-4c42-ac52-7484a8b4c238" />
+
+<img width="1919" height="1079" alt="Screenshot 2025-09-06 233834" src="https://github.com/user-attachments/assets/1e76176e-fc61-4b91-b014-631506840b8b" />
 
 ## 🛠️ Setup & Installation
 
@@ -113,5 +116,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 📞 Contact
 
 For questions or support, please open an issue on GitHub.
+
 
 
