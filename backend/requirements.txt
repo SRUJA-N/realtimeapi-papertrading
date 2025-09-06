@@ -1,18 +1,8 @@
-
 # FastAPI framework for building APIs
 fastapi==0.111.0
 
 # Uvicorn ASGI server with standard extras for running FastAPI
 uvicorn[standard]==0.23.2
-fastapi
-uvicorn
-sqlalchemy
-psycopg2-binary
-pydantic
-python-dotenv
-requests
-bcrypt==4.0.1
-passlib[bcrypt]==1.7.4
 
 # SQLAlchemy ORM for database interactions
 sqlalchemy==2.0.26
@@ -20,15 +10,24 @@ sqlalchemy==2.0.26
 # PostgreSQL database adapter for Python
 psycopg2-binary==2.9.6
 
+# Pydantic for data validation and settings management
+pydantic
+
+# Pydantic settings for environment/config management
+pydantic-settings
+
+# Dotenv for environment variable loading
+python-dotenv
+
+# Requests library for HTTP calls
+requests
+
+# Bcrypt and Passlib for password hashing
+bcrypt==4.0.1
+passlib[bcrypt]==1.7.4
+
 # Python JOSE library for JWT token creation and verification
 python-jose==3.3.0
 
-# Passlib library for password hashing
-passlib[bcrypt]==1.7.4
-
-# Required for handling file uploads (version constraint removed to resolve conflict)
+# Required for handling file uploads
 python-multipart
-
-# Pydantic for data validation and settings management
-
-requests
