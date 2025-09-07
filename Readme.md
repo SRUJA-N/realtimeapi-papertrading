@@ -22,11 +22,11 @@ A full-stack paper trading platform that allows users to simulate cryptocurrency
 - 📱 Responsive React frontend with protected routes
 
 ## 📸 Screenshots
-##**Signup Page**
+**Signup Page**
 <img width="1916" height="1078" alt="Screenshot 2025-09-06 233710" src="https://github.com/user-attachments/assets/90fa061c-7212-4822-b40f-e07245440979" />
-##**Login Page**
+**Login Page**
 <img width="1913" height="1079" alt="Screenshot 2025-09-06 233717" src="https://github.com/user-attachments/assets/1577462f-0412-4c42-ac52-7484a8b4c238" />
-##**DashBoard Page**
+**DashBoard Page**
 <img width="1918" height="1079" alt="Screenshot 2025-09-07 195002" src="https://github.com/user-attachments/assets/fa880fc2-2c4d-477f-ac48-b2795d3abcbc" />
 
 ## 🛠️ Setup & Installation
@@ -116,6 +116,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 📞 Contact
 
 For questions or support, please open an issue on GitHub.
+
 
 
 
