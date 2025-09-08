@@ -20,6 +20,10 @@ A full-stack paper trading platform that allows users to simulate cryptocurrency
 - 💼 Portfolio management with buy/sell trades
 - 📈 Trade history tracking
 - 📱 Responsive React frontend with protected routes
+  
+## 🤖 AI Assistance Disclosure
+
+Some portions of the codebase were generated with the assistance of AI tools. However, all debugging, integration, and understanding of the code have been performed manually to ensure correctness and maintainability.
 
 ## 📸 Screenshots
 **Signup Page**
@@ -116,6 +120,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 📞 Contact
 
 For questions or support, please open an issue on GitHub.
+
 
 
 
