@@ -1,16 +1,17 @@
 from pydantic_settings import BaseSettings
-import os
+from typing import List
 
 class Settings(BaseSettings):
-    SECRET_KEY: str = "your-super-secret-key"
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    ALLOWED_ORIGINS: list = ["http://localhost:5173", "http://127.0.0.1:5173"]
-    POSTGRES_USER: str = "postgres"
-    POSTGRES_PASSWORD: str = "postgres"
-    POSTGRES_HOST: str = "localhost"
-    POSTGRES_PORT: str = "5431"
-    POSTGRES_DB: str = "app_db"
+    ALLOWED_ORIGINS: List[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: int
+    POSTGRES_DB: str
 
     class Config:
         env_file = ".env"
