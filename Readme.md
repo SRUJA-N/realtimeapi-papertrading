@@ -45,13 +45,22 @@ Some portions of the codebase were generated with the assistance of AI tools. Ho
    git clone https://github.com/your-username/realtimeapi-papertrading.git
    cd realtimeapi-papertrading
    ```
+2. Create a `.env` file in the `backend` directory with the following variables:
+   ```
+   POSTGRES_USER=your_postgres_user
+   POSTGRES_PASSWORD=your_postgres_password
+   POSTGRES_HOST=localhost
+   POSTGRES_PORT=5431
+   POSTGRES_DB=app_db
+   SECRET_KEY=your_secret_key
+   ```
 
-2. Build and run with Docker Compose:
+3. Build and run with Docker Compose:
    ```bash
    docker-compose up --build
    ```
 
-3. Access the application:
+4. Access the application:
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:8000
    - API Docs: http://localhost:8000/docs
@@ -120,6 +129,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 📞 Contact
 
 For questions or support, please open an issue on GitHub.
+
 
 
 
